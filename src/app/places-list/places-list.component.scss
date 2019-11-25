@@ -1,0 +1,20 @@
+.actions {
+  display: flex;
+  justify-content: space-around;
+  .action {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin: 2px;
+    }
+  }
+
+  .remove {
+    color: #ff3232;
+  }
+
+  .edit {
+    color: goldenrod;
+  }
+}
