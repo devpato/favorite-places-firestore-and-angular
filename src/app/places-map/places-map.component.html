@@ -1,1 +1,11 @@
-<p>places-map works!</p>
+<div class="places">
+  <div class="map">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="4">
+      <agm-marker
+        *ngFor="let p of places"
+        [latitude]="lat"
+        [longitude]="lng"
+      ></agm-marker>
+    </agm-map>
+  </div>
+</div>
