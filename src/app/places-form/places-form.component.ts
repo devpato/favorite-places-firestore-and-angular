@@ -16,4 +16,10 @@ export class PlacesFormComponent implements OnInit {
   constructor(private placesService: PlacesService) {}
 
   ngOnInit() {}
+
+  onSubmit() {
+    const place = this.form.value;
+    this.placesService.addPlace({ ...place, visited: false });
+    this.form.reset();
+  }
 }
