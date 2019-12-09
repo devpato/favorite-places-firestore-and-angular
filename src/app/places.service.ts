@@ -1,9 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PlacesService {
+  constructor() {}
 
-  constructor() { }
+  addPlace(): void {}
+
+  deletePlace(): void {}
+
+  getPlaces(): void {}
+
+  editPlace(): void {}
 }
