@@ -1,15 +1,30 @@
 <div class="form-fav">
-  <form class="ui form">
+  <form class="ui form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="field">
-      <input type="text" name="first-name" placeholder="Place Name" />
+      <input
+        type="text"
+        name="name"
+        placeholder="Place Name"
+        formControlName="name"
+      />
     </div>
     <div class="field">
-      <input type="text" name="last-name" placeholder="Latitude" />
+      <input
+        type="text"
+        name="latitude"
+        placeholder="Latitude"
+        formControlName="lat"
+      />
     </div>
     <div class="field">
-      <input type="text" name="last-name" placeholder="Longitude" />
+      <input
+        type="text"
+        name="Longitude"
+        placeholder="Longitude"
+        formControlName="long"
+      />
     </div>
-    <button class="ui inverted violet button">
+    <button class="ui inverted violet button" (click)="onSubmit()">
       <i class="fas fa-star"></i> Add to Favorites
     </button>
   </form>
