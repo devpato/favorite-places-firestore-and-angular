@@ -8,13 +8,26 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td data-label="Name">James</td>
-      <td data-label="Age">24</td>
-      <td data-label="Job">Engineer</td>
+    <tr *ngFor="let p of places$ | async">
+      <td data-label="Name">{{ p.name }}</td>
+      <td data-label="Age">{{ p.long }}</td>
+      <td data-label="Job">{{ p.lat }}</td>
       <td class="actions">
-        <div class="action remove">Remove<i class="fas fa-backspace"></i></div>
-        <div class="action edit">Edit<i class="far fa-edit"></i></div>
+        <div class="action remove" (click)="onDelete(p.id)">
+          Remove<i class="fas fa-backspace"></i>
+        </div>
+        <div class="action" (click)="onUpdate(p.id, p.visited)">
+          <ng-container *ngIf="p.visited; else notVisited">
+            <span class="visited"
+              >Visited<i class="fas fa-smile-wink"></i
+            ></span>
+          </ng-container>
+          <ng-template #notVisited>
+            <span class="not-visited"
+              >Not Visited <i class="fas fa-sad-tear"></i
+            ></span>
+          </ng-template>
+        </div>
       </td>
     </tr>
   </tbody>
