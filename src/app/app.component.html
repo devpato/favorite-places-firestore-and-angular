@@ -1,11 +1,11 @@
 <div class="places">
   <app-places-form></app-places-form>
-  <div class="columns">
+  <div class="columns" *ngIf="places$ | async as places">
     <div class="places-list">
-      <app-places-list></app-places-list>
+      <app-places-list [places]="places"></app-places-list>
     </div>
     <div class="map">
-      <app-places-map></app-places-map>
+      <app-places-map [places]="places"></app-places-map>
     </div>
   </div>
 </div>
