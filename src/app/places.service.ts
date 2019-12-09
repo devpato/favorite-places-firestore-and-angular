@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Place } from './place.model';
 
-import { map, catchError, take } from 'rxjs/operators';
+import { map, catchError, take, finalize } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -32,8 +32,14 @@ export class PlacesService {
 
   deletePlace(id: string): void {
     from(this.firestorePlacesCollection.doc(id).delete())
-      .pipe(take(1))
-      .subscribe(/*something here*/);
+      .pipe(
+        take(1),
+        finalize(() => console.log('complete!'))
+      )
+      .subscribe(
+        success => console.log('success!'),
+        error => console.log('error!')
+      );
   }
 
   updatePlace(id: string, visited: boolean): void {
@@ -42,7 +48,13 @@ export class PlacesService {
         .doc(id)
         .set({ visited: !visited }, { merge: true })
     )
-      .pipe(take(1))
-      .subscribe(/*something here*/);
+      .pipe(
+        take(1),
+        finalize(() => console.log('complete!'))
+      )
+      .subscribe(
+        success => console.log('success!'),
+        error => console.log('error!')
+      );
   }
 }
