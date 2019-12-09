@@ -1,16 +1,48 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Place } from './place.model';
 
+import { map, catchError, take } from 'rxjs/operators';
+import { from, of } from 'rxjs';
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PlacesService {
-  constructor() {}
+  constructor(private firestore: AngularFirestore) {}
 
-  addPlace(): void {}
+  firestorePlacesCollection = this.firestore.collection('places');
 
-  deletePlace(): void {}
+  places$ = this.firestorePlacesCollection.snapshotChanges().pipe(
+    map(actions => {
+      return actions.map(p => {
+        const place = p.payload.doc;
+        const id = place.id;
+        return { id, ...place.data() } as Place;
+      });
+    })
+  );
 
-  getPlaces(): void {}
+  addPlace(data: Place): void {
+    from(this.firestorePlacesCollection.add(data))
+      .pipe(take(1))
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
 
-  editPlace(): void {}
+  deletePlace(id: string): void {
+    from(this.firestorePlacesCollection.doc(id).delete())
+      .pipe(take(1))
+      .subscribe(/*something here*/);
+  }
+
+  updatePlace(id: string, visited: boolean): void {
+    from(
+      this.firestorePlacesCollection
+        .doc(id)
+        .set({ visited: !visited }, { merge: true })
+    )
+      .pipe(take(1))
+      .subscribe(/*something here*/);
+  }
 }
