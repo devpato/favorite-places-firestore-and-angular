@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PlacesService } from './places.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'afire';
+
+  constructor(private placesService: PlacesService) {}
+  places$ = this.placesService.places$;
 }
