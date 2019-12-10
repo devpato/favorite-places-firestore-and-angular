@@ -9,7 +9,7 @@ import { Place } from '../place.model';
 export class PlacesMapComponent implements OnInit {
   @Input() places: Place[];
   lat = 53.2734;
-  lng = -7.77832031;
+  long = -7.77832031;
 
   constructor() {}
 
