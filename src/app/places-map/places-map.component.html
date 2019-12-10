@@ -3,8 +3,8 @@
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="4">
       <agm-marker
         *ngFor="let p of places"
-        [latitude]="lat"
-        [longitude]="lng"
+        [latitude]="p.lat"
+        [longitude]="p.long"
       ></agm-marker>
     </agm-map>
   </div>
