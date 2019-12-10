@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Place } from './place.model';
+import { map } from 'rxjs/operators';
 
-import { map, catchError, take, finalize } from 'rxjs/operators';
-import { from, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,39 +21,29 @@ export class PlacesService {
     })
   );
 
-  addPlace(data: Place): void {
-    from(this.firestorePlacesCollection.add(data))
-      .pipe(take(1))
-      .subscribe(res => {
-        console.log(res);
-      });
+  async addPlace(data: Place): Promise<void> {
+    try {
+      this.firestorePlacesCollection.add(data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  deletePlace(id: string): void {
-    from(this.firestorePlacesCollection.doc(id).delete())
-      .pipe(
-        take(1),
-        finalize(() => console.log('complete!'))
-      )
-      .subscribe(
-        success => console.log('success!'),
-        error => console.log('error!')
-      );
+  async deletePlace(id: string): Promise<void> {
+    try {
+      await this.firestorePlacesCollection.doc(id).delete();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  updatePlace(id: string, visited: boolean): void {
-    from(
-      this.firestorePlacesCollection
+  async updatePlace(id: string, visited: boolean): Promise<void> {
+    try {
+      await this.firestorePlacesCollection
         .doc(id)
-        .set({ visited: !visited }, { merge: true })
-    )
-      .pipe(
-        take(1),
-        finalize(() => console.log('complete!'))
-      )
-      .subscribe(
-        success => console.log('success!'),
-        error => console.log('error!')
-      );
+        .set({ visited: !visited }, { merge: true });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
