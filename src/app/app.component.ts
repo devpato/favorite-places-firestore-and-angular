@@ -7,7 +7,7 @@ import { PlacesService } from './places.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'afire';
+  title = 'This Dot app';
 
   constructor(private placesService: PlacesService) {}
   places$ = this.placesService.places$;
