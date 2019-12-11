@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PlacesService } from '../places.service';
-import { map } from 'rxjs/operators';
 import { Place } from '../place.model';
 
 @Component({
