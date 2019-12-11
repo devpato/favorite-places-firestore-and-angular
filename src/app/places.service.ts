@@ -11,6 +11,7 @@ export class PlacesService {
 
   firestorePlacesCollection = this.firestore.collection('places');
 
+  //READ
   places$ = this.firestorePlacesCollection.snapshotChanges().pipe(
     map(actions => {
       return actions.map(p => {
@@ -21,6 +22,7 @@ export class PlacesService {
     })
   );
 
+  //CREATE
   async addPlace(data: Place): Promise<void> {
     try {
       this.firestorePlacesCollection.add(data);
@@ -29,19 +31,21 @@ export class PlacesService {
     }
   }
 
-  async deletePlace(id: string): Promise<void> {
-    try {
-      await this.firestorePlacesCollection.doc(id).delete();
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
+  //UPDATE
   async updatePlace(id: string, visited: boolean): Promise<void> {
     try {
       await this.firestorePlacesCollection
         .doc(id)
         .set({ visited: !visited }, { merge: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  //DELETE
+  async deletePlace(id: string): Promise<void> {
+    try {
+      await this.firestorePlacesCollection.doc(id).delete();
     } catch (err) {
       console.log(err);
     }
