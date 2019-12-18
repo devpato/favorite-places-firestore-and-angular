@@ -1,18 +1,23 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Place } from './place.model';
-import { map } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFirePerformance } from "@angular/fire/performance";
+import { Place } from "./place.model";
+import { map } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PlacesService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private perf: AngularFirePerformance,
+    private firestore: AngularFirestore
+  ) {}
 
-  firestorePlacesCollection = this.firestore.collection('places');
+  firestorePlacesCollection = this.firestore.collection("places");
 
   //READ
   places$ = this.firestorePlacesCollection.snapshotChanges().pipe(
+    this.perf.trace("placesQuery"),
     map(actions => {
       return actions.map(p => {
         const place = p.payload.doc;
