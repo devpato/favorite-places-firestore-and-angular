@@ -15,3 +15,12 @@
     grid-area: map;
   }
 }
+
+@media only screen and (max-device-width: 680px) {
+  .places {
+    .columns {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
